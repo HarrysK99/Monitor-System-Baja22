@@ -3,6 +3,8 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5 import uic
 
+
+print("Fighting")
 #UI파일 연결
 #UI파일과 py코드 파일은 같은 디렉토리에 위치
 #form_class = uic.loadUiType("CTui_proto.ui")[0]
