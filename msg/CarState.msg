@@ -1,0 +1,11 @@
+float32 f_wheel_velocity_FL_ms
+float32 f_wheel_velocity_FR_ms
+float32 f_wheel_velocity_RL_ms
+float32 f_wheel_velocity_RR_ms
+
+float32 f_car_velocity_ms
+
+float32 f_motor_torque_FL_ms
+float32 f_motor_torque_FR_ms
+float32 f_motor_torque_RL_ms
+float32 f_motor_torque_RR_ms
