@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #-*- coding:utf-8 -*-
 
 from __future__ import print_function
@@ -15,7 +15,7 @@ def main():
 
     count = 1
     
-    위도 : 35.9476231 경도 : 126.5924496
+    #위도 : 35.9476231 경도 : 126.5924496
     
     while not rospy.is_shutdown():
     	sig = NavSatFix()
