@@ -7,7 +7,7 @@ import random
 from custom_pkg.msg import CarState
 
 def main():
-    rospy.init_node('data_node', anonymous=False)
+    rospy.init_node('mbed_data_node', anonymous=False)
 
     pub = rospy.Publisher('carstate', CarState, queue_size=10)
 
