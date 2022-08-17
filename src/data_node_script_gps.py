@@ -4,7 +4,7 @@
 from __future__ import print_function
 import rospy
 import random
-from custom_pkg.msg import CarState
+from sensor_msgs.msg import NavSatFix
 
 def main():
     rospy.init_node('data_node', anonymous=False)
@@ -14,14 +14,11 @@ def main():
     rate = rospy.Rate(8)
 
     count = 1
-
+    
+    위도 : 35.9476231 경도 : 126.5924496
+    
     while not rospy.is_shutdown():
-    	temp_1=random.randrange(1,100)
-    	temp_2=random.randrange(1,100)
-    	temp_3=random.randrange(1,100)
-    	temp_4=random.randrange(1,100)
-    	
-    	sig = CarState()
+    	sig = NavSatFix()
         
     	sig.f_wheel_velocity_FL_ms=temp_1
     	sig.f_wheel_velocity_FR_ms=temp_1

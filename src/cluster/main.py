@@ -19,13 +19,19 @@ global RGB_CONST
 RGB_CONST=32
 
 global START_POINT
-START_POINT=[37.541719, 127.079144] #[0]: latitude, [1]: longitude
+START_POINT=[35.9476231, 126.5924496] #[0]: latitude, [1]: longitude
 
 global START_WIDTH
 START_WIDTH=[0.00002, 0.00006]
 
 global MAX_LAP
 MAX_LAP=30
+
+global mbed_flag
+mbed_flag=0
+
+global GPS_flag
+GPS_flag=0
 
 #UI파일 연결
 #UI파일과 py코드 파일은 같은 디렉토리에 위치
@@ -62,8 +68,8 @@ class WindowClass(QMainWindow, form_class):
         self.mbed_trigger.signal.connect(self.SettingByMbed)
         self.GPS_trigger.signal.connect(self.SettingByGPS)
 
-        self.mbed_flag=0
-        self.GPS_flag=0
+        #self.mbed_flag=0
+        #self.GPS_flag=0
         self.start_time_ref=0
         self.total_time_ref=0
         self.lap=0
@@ -88,13 +94,15 @@ class WindowClass(QMainWindow, form_class):
         _translate = QtCore.QCoreApplication.translate
         global RGB_CONST
         global pub, pub_msg
-        print('SettingByMbed')
+        global mbed_flag, GPS_flag
+        #print('SettingByMbed')
 
         # flag check and publish
-        if (self.mbed_flag==1 and self.GPS_flag==1):
+        if (mbed_flag==1 and GPS_flag==1):
+            print('mbed_pub')
             pub.publish(pub_msg)
-            self.mbed_flag=0
-            self.GPS_flag=0
+            mbed_flag=0
+            GPS_flag=0
 
         # Setting publish msg 
         pub_msg.f_motor_torque_FL_Nm=data.f_motor_torque_FL_Nm
@@ -107,7 +115,7 @@ class WindowClass(QMainWindow, form_class):
         pub_msg.f_wheel_velocity_RR_ms=data.f_wheel_velocity_RR_ms
         pub_msg.f_car_velocity_ms=data.f_car_velocity_ms
         pub_msg.i_throttle=data.i_throttle
-        self.mbed_flag=1
+        mbed_flag=1
 
 
         # 토크벡터링 ON
@@ -489,15 +497,17 @@ class WindowClass(QMainWindow, form_class):
         _translate = QtCore.QCoreApplication.translate
         global START_POINT, START_WIDTH
         global pub, pub_msg
+        global mbed_flag, GPS_flag
         latitude=data.latitude
         longitude=data.longitude
-        print('SettingByGPS')
+        #print('SettingByGPS')
         
         # flag check and publish
-        if (self.mbed_flag==1 and self.GPS_flag==1):
+        if (mbed_flag==1 and GPS_flag==1):
+            print('gps_pub')
             pub.publish(pub_msg)
-            self.mbed_flag=0
-            self.GPS_flag=0
+            mbed_flag=0
+            GPS_flag=0
 
         # 직사각형 start line을 구상하고 조건문 작성. (START_POINT 값이 직사각형의 중심)
         if (self.start_flag==0):
@@ -532,7 +542,8 @@ class WindowClass(QMainWindow, form_class):
             pub_msg.lap=self.lap
             pub_msg.lap_time_cur=self.lap_time_cur
             pub_msg.lap_time_prev=self.lap_time_prev
-            self.GPS_flag=1
+            pub_msg.total_time=self.total_time
+            GPS_flag=1
 
             # 이전 랩타임 출력
             self.lap_timer_prev.setText(_translate("Dialog", "<html><head/><body><p align=\"center\"><span style=\" font-size:62pt;\">%s</span></p></body></html>")%("/"+self.lap_time_prev))
