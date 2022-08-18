@@ -5,9 +5,9 @@ import sys
 import time
 import rospy
 
-from custom_pkg.msg import CarState
+from driver_system.msg import CarState
 from sensor_msgs.msg import NavSatFix
-from option_system.msg import DrivingData
+from drvier_system.msg import DrivingData
 
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
@@ -35,7 +35,7 @@ GPS_flag=0
 
 #UI파일 연결
 #UI파일과 py코드 파일은 같은 디렉토리에 위치
-form_class = uic.loadUiType("ffffcluster.ui")[0]
+form_class = uic.loadUiType("./ui/driverMonitorUi.ui")[0]
 
 #publisher & message
 pub=rospy.Publisher('driving_data', DrivingData, queue_size=1)

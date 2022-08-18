@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0.2)
-project(custom_msg2_pkg)
+project(driver_system)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)
@@ -49,11 +49,8 @@ find_package(catkin REQUIRED COMPONENTS
 ## Generate messages in the 'msg' folder
 add_message_files(
   FILES
-  Locations.msg
-  Coordinate.msg
-  CarSignal.msg
   CarState.msg
-  CarControlSignal.msg
+  DrivingData.msg
 )
 
 ## Generate services in the 'srv' folder
@@ -107,7 +104,7 @@ generate_messages(
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
- LIBRARIES custom_msg2_pkg
+ LIBRARIES driver_system
  CATKIN_DEPENDS rospy std_msgs message_runtime
 #  DEPENDS system_lib
 )
@@ -163,8 +160,6 @@ include_directories(
 ## Mark executable scripts (Python etc.) for installation
 ## in contrast to setup.py, you can choose the destination
 catkin_install_python(PROGRAMS
-  src/data_node_script.py
-  src/print_node_script.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 

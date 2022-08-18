@@ -1,5 +1,5 @@
-int8 ON=1
-int8 OFF=0
+float64 latitude
+float64 longitude
 float32 f_wheel_velocity_FL_ms
 float32 f_wheel_velocity_FR_ms
 float32 f_wheel_velocity_RL_ms
@@ -10,5 +10,7 @@ float32 f_motor_torque_FR_Nm
 float32 f_motor_torque_RL_Nm
 float32 f_motor_torque_RR_Nm
 int32 i_throttle
-int8 c_torque_mode_flag
-int8[4] c_motor_mode_flag
+int8 lap
+string total_time
+string lap_time_cur
+string lap_time_prev

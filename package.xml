@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>custom_msg2_pkg</name>
+  <name>driver_system</name>
   <version>0.0.0</version>
-  <description>The custom_msg2_pkg package</description>
+  <description>The driver_system package</description>
 
   <!-- One maintainer tag required, multiple allowed, one person per tag -->
   <!-- Example:  -->

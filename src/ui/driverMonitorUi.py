@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'ffffcluster.ui'
+# Form implementation generated from reading ui file 'monitorUi.ui'
 #
 # Created by: PyQt5 UI code generator 5.14.1
 #
@@ -18,16 +18,16 @@ class Ui_Dialog(object):
 "background-color: rgb(229, 230, 229);\n"
 "\n"
 "")
-        self.circularBg_3 = QtWidgets.QFrame(Dialog)
-        self.circularBg_3.setGeometry(QtCore.QRect(1370, 220, 400, 400))
-        self.circularBg_3.setStyleSheet("QFrame{\n"
+        self.circularBg = QtWidgets.QFrame(Dialog)
+        self.circularBg.setGeometry(QtCore.QRect(1370, 220, 400, 400))
+        self.circularBg.setStyleSheet("QFrame{\n"
 "    border-radius: 200px;    \n"
 "    background-color: rgba(85, 85, 127, 100);\n"
 "}")
-        self.circularBg_3.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.circularBg_3.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.circularBg_3.setObjectName("circularBg_3")
-        self.lappercentage = QtWidgets.QFrame(self.circularBg_3)
+        self.circularBg.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.circularBg.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.circularBg.setObjectName("circularBg")
+        self.lappercentage = QtWidgets.QFrame(self.circularBg)
         self.lappercentage.setGeometry(QtCore.QRect(0, 0, 400, 400))
         font = QtGui.QFont()
         font.setFamily("Cascadia Code")
@@ -35,7 +35,7 @@ class Ui_Dialog(object):
         self.lappercentage.setFont(font)
         self.lappercentage.setStyleSheet("QFrame{\n"
 "    border-radius: 200px;    \n"
-"    background-color: qconicalgradient(cx:0.5, cy:0.5, angle:90, stop:0.750 rgba(255, 43, 82, 255), stop:0.745 rgba(255, 255, 255, 0));\n"
+"    background-color: qconicalgradient(cx:0.5, cy:0.5, angle:90,  stop:0.75 rgba(255, 255, 255, 0),stop:0.752 rgba(255, 43, 82, 255));\n"
 "} ")
         self.lappercentage.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.lappercentage.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -108,7 +108,7 @@ class Ui_Dialog(object):
         self.RL_state.setBaseSize(QtCore.QSize(0, 0))
         self.RL_state.setStyleSheet("QFrame{\n"
 "    \n"
-"    background-color: rgb(125, 255, 216,80);\n"
+"    background-color: rgb(125, 255, 216,200);\n"
 "\n"
 "    border-radius: 70px;    \n"
 "    \n"
@@ -117,11 +117,11 @@ class Ui_Dialog(object):
         self.RL_state.setFrameShadow(QtWidgets.QFrame.Raised)
         self.RL_state.setObjectName("RL_state")
         self.RL_state_2 = QtWidgets.QFrame(self.RL_state)
-        self.RL_state_2.setGeometry(QtCore.QRect(40, 10, 71, 91))
+        self.RL_state_2.setGeometry(QtCore.QRect(40, 20, 71, 91))
         self.RL_state_2.setBaseSize(QtCore.QSize(0, 0))
         self.RL_state_2.setStyleSheet("QFrame{\n"
 "    \n"
-"    background-color: rgb(125, 255, 216,80);\n"
+"    background-color: rgb(125, 255, 216,200);\n"
 "\n"
 "    border-radius: 15px;    \n"
 "    \n"
@@ -162,8 +162,8 @@ class Ui_Dialog(object):
         self.torquevectoring.setObjectName("torquevectoring")
         self.torque_on_off = QtWidgets.QLabel(Dialog)
         self.torque_on_off.setGeometry(QtCore.QRect(1140, 40, 181, 101))
-        self.torque_on_off.setStyleSheet("\n"
-"color: rgb(213, 0, 3);\n"
+        self.torque_on_off.setStyleSheet("color: rgb(52, 101, 164);\n"
+"\n"
 "font: 50pt \"배달의민족 한나체 Air\";\n"
 " background-color: none;")
         self.torque_on_off.setObjectName("torque_on_off")
@@ -182,12 +182,25 @@ class Ui_Dialog(object):
         font.setPointSize(32)
         self.PedalThrottle.setFont(font)
         self.PedalThrottle.setMouseTracking(False)
-        self.PedalThrottle.setStyleSheet("QProgressBar::chunk\n"
+        self.PedalThrottle.setStyleSheet("QProgressBar\n"
+"                    {\n"
+"                    \n"
+"    \n"
+"    \n"
+"    \n"
+"    \n"
+"    background-color: rgb(195, 221, 220);\n"
+"    border-radius: 10px;\n"
+"                    }\n"
+"QProgressBar::chunk\n"
 "                  {\n"
 "                    \n"
 "                    border-radius: 10px;\n"
-"                    border-width: 5px;\n"
+"                    border-top-width: 10px;\n"
+"                    border-right-width: 5px;\n"
+"                    border-left-width: 5px;\n"
 "                    border-style:solid;\n"
+"                    margin:1px;\n"
 "                    \n"
 "    border-top-color: rgb(24, 112, 255);\n"
 "    border-left-color: rgb(24, 112, 255);\n"
@@ -197,10 +210,11 @@ class Ui_Dialog(object):
 "\n"
 "    \n"
 "    \n"
-"    background-color: rgb(255, 157, 38);\n"
+"    \n"
+"    background-color: rgb(255, 114, 0);\n"
 "                  }\n"
 "")
-        self.PedalThrottle.setProperty("value", 60)
+        self.PedalThrottle.setProperty("value", 80)
         self.PedalThrottle.setAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignTop)
         self.PedalThrottle.setTextVisible(False)
         self.PedalThrottle.setOrientation(QtCore.Qt.Vertical)
@@ -273,19 +287,19 @@ class Ui_Dialog(object):
 "border-radius: 3px;")
         self.throttle_10.setText("")
         self.throttle_10.setObjectName("throttle_10")
-        self.vel_prev = QtWidgets.QLabel(Dialog)
-        self.vel_prev.setGeometry(QtCore.QRect(690, 750, 581, 151))
+        self.velocity = QtWidgets.QLabel(Dialog)
+        self.velocity.setGeometry(QtCore.QRect(690, 750, 581, 151))
         font = QtGui.QFont()
         font.setFamily("배달의민족 도현")
         font.setPointSize(100)
         font.setBold(False)
         font.setItalic(False)
         font.setWeight(50)
-        self.vel_prev.setFont(font)
-        self.vel_prev.setStyleSheet("font: 100pt \"배달의민족 도현\";\n"
-"color: rgb(26, 128, 217);\n"
+        self.velocity.setFont(font)
+        self.velocity.setStyleSheet("font: 100pt \"배달의민족 도현\";\n"
+"color: rgb(0, 0, 0);\n"
 "")
-        self.vel_prev.setObjectName("vel_prev")
+        self.velocity.setObjectName("velocity")
         self.throttle_1 = QtWidgets.QLabel(Dialog)
         self.throttle_1.setGeometry(QtCore.QRect(140, 940, 41, 41))
         self.throttle_1.setStyleSheet("background-color: none;\n"
@@ -333,7 +347,8 @@ class Ui_Dialog(object):
         self.ON_light.setGeometry(QtCore.QRect(1130, 20, 201, 141))
         self.ON_light.setBaseSize(QtCore.QSize(0, 0))
         self.ON_light.setStyleSheet("QFrame{\n"
-"    background-color: rgba(255, 255, 51, 100);\n"
+"    \n"
+"    background-color: rgba(178, 190, 197, 100);\n"
 "\n"
 "    border-radius: 60px;    \n"
 "    \n"
@@ -341,31 +356,31 @@ class Ui_Dialog(object):
         self.ON_light.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.ON_light.setFrameShadow(QtWidgets.QFrame.Raised)
         self.ON_light.setObjectName("ON_light")
-        self.FR_state_2 = QtWidgets.QFrame(Dialog)
-        self.FR_state_2.setGeometry(QtCore.QRect(1030, 280, 120, 120))
-        self.FR_state_2.setBaseSize(QtCore.QSize(0, 0))
-        self.FR_state_2.setStyleSheet("QFrame{\n"
+        self.FR_state = QtWidgets.QFrame(Dialog)
+        self.FR_state.setGeometry(QtCore.QRect(1030, 280, 120, 120))
+        self.FR_state.setBaseSize(QtCore.QSize(0, 0))
+        self.FR_state.setStyleSheet("QFrame{\n"
 "    background-color: rgba(255, 255, 51, 190);\n"
 "\n"
 "    border-radius: 60px;    \n"
 "    \n"
 "}")
-        self.FR_state_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.FR_state_2.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.FR_state_2.setObjectName("FR_state_2")
-        self.FR_state = QtWidgets.QFrame(self.FR_state_2)
-        self.FR_state.setGeometry(QtCore.QRect(30, 20, 44, 81))
-        self.FR_state.setBaseSize(QtCore.QSize(0, 0))
-        self.FR_state.setStyleSheet("QFrame{\n"
+        self.FR_state.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.FR_state.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.FR_state.setObjectName("FR_state")
+        self.FR_state_2 = QtWidgets.QFrame(self.FR_state)
+        self.FR_state_2.setGeometry(QtCore.QRect(30, 20, 44, 81))
+        self.FR_state_2.setBaseSize(QtCore.QSize(0, 0))
+        self.FR_state_2.setStyleSheet("QFrame{\n"
 "    \n"
 "    background-color: rgba(255, 255, 51, 190);\n"
 "\n"
 "    border-radius: 15px;    \n"
 "    \n"
 "}")
-        self.FR_state.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.FR_state.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.FR_state.setObjectName("FR_state")
+        self.FR_state_2.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.FR_state_2.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.FR_state_2.setObjectName("FR_state_2")
         self.lap_timer_cur = QtWidgets.QLabel(Dialog)
         self.lap_timer_cur.setGeometry(QtCore.QRect(1330, 620, 491, 131))
         self.lap_timer_cur.setStyleSheet("font: 87 50pt \"Segoe UI Black\";")
@@ -379,19 +394,19 @@ class Ui_Dialog(object):
         self.lap_timer_prev.setStyleSheet("background-color:none;\n"
 "")
         self.lap_timer_prev.setObjectName("lap_timer_prev")
-        self.total_lap_timer = QtWidgets.QLabel(Dialog)
-        self.total_lap_timer.setGeometry(QtCore.QRect(1360, 880, 421, 85))
+        self.timer = QtWidgets.QLabel(Dialog)
+        self.timer.setGeometry(QtCore.QRect(1360, 880, 421, 85))
         font = QtGui.QFont()
         font.setFamily("Yu Gothic Medium")
         font.setPointSize(70)
         font.setBold(False)
         font.setItalic(False)
         font.setWeight(7)
-        self.total_lap_timer.setFont(font)
-        self.total_lap_timer.setStyleSheet("font: 57 70pt \"Yu Gothic Medium\";\n"
+        self.timer.setFont(font)
+        self.timer.setStyleSheet("font: 57 70pt \"Yu Gothic Medium\";\n"
 "background-color:none;\n"
 "")
-        self.total_lap_timer.setObjectName("total_lap_timer")
+        self.timer.setObjectName("timer")
         self.label = QtWidgets.QLabel(Dialog)
         self.label.setGeometry(QtCore.QRect(740, 230, 471, 471))
         self.label.setStyleSheet("image: url(:/car_top.png);")
@@ -400,9 +415,9 @@ class Ui_Dialog(object):
         self.label.raise_()
         self.lap_timer_cur.raise_()
         self.lap_timer_prev.raise_()
-        self.total_lap_timer.raise_()
+        self.timer.raise_()
         self.torquevectoringbackground.raise_()
-        self.circularBg_3.raise_()
+        self.circularBg.raise_()
         self.torquevectoring.raise_()
         self.torque_on_off.raise_()
         self.PedalThrottle.raise_()
@@ -417,7 +432,7 @@ class Ui_Dialog(object):
         self.throttle_40.raise_()
         self.throttle_20.raise_()
         self.throttle_10.raise_()
-        self.vel_prev.raise_()
+        self.velocity.raise_()
         self.throttle_1.raise_()
         self.throttle_21.raise_()
         self.throttle_41.raise_()
@@ -426,7 +441,7 @@ class Ui_Dialog(object):
         self.throttle_101.raise_()
         self.ON_light.raise_()
         self.FL_state.raise_()
-        self.FR_state_2.raise_()
+        self.FR_state.raise_()
         self.RL_state.raise_()
         self.RR_state.raise_()
 
@@ -438,8 +453,8 @@ class Ui_Dialog(object):
         self.current_lap.setText(_translate("Dialog", "<html><head/><body><p align=\"center\"><span style=\" font-size:120pt;\">4</span></p></body></html>"))
         self.laps.setText(_translate("Dialog", "<html><head/><body><p>laps</p></body></html>"))
         self.torquevectoring.setText(_translate("Dialog", "<html><head/><body><p align=\"center\"><span style=\" font-size:90pt;\">토크벡터링 </span></p></body></html>"))
-        self.torque_on_off.setText(_translate("Dialog", "<html><head/><body><p align=\"center\"><span style=\" font-size:80pt;\">ON</span></p></body></html>"))
-        self.vel_prev.setText(_translate("Dialog", "<html><head/><body><p align=\"center\"><span style=\" font-size:100pt; font-weight:600;\">00km/h</span></p></body></html>"))
+        self.torque_on_off.setText(_translate("Dialog", "<html><head/><body><p align=\"center\"><span style=\" font-size:80pt;\">OFF</span></p></body></html>"))
+        self.velocity.setText(_translate("Dialog", "<html><head/><body><p align=\"center\"><span style=\" font-size:100pt; font-weight:600;\">00km/h</span></p></body></html>"))
         self.throttle_1.setText(_translate("Dialog", "0"))
         self.throttle_21.setText(_translate("Dialog", "20"))
         self.throttle_41.setText(_translate("Dialog", "40"))
@@ -448,7 +463,7 @@ class Ui_Dialog(object):
         self.throttle_101.setText(_translate("Dialog", "100"))
         self.lap_timer_cur.setText(_translate("Dialog", "<html><head/><body><p align=\"center\"><span style=\" font-size:84pt; font-weight:600;\">00:00:00</span></p></body></html>"))
         self.lap_timer_prev.setText(_translate("Dialog", "<html><head/><body><p align=\"center\"><span style=\" font-size:62pt;\">/00:00:00</span></p></body></html>"))
-        self.total_lap_timer.setText(_translate("Dialog", "<html><head/><body><p align=\"center\">00:00:00</p></body></html>"))
+        self.timer.setText(_translate("Dialog", "<html><head/><body><p align=\"center\">00:00:00</p></body></html>"))
 import hybridimages_rc
 
 
