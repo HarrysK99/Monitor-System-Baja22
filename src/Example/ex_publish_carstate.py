@@ -4,7 +4,7 @@
 from __future__ import print_function
 import rospy
 import random
-from custom_pkg.msg import CarState
+from driver_system.msg import CarState
 
 def main():
     rospy.init_node('mbed_data_node', anonymous=False)
