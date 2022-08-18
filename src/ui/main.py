@@ -35,7 +35,7 @@ GPS_flag=0
 
 #UI파일 연결
 #UI파일과 py코드 파일은 같은 디렉토리에 위치
-form_class = uic.loadUiType("./ui/driverMonitorUi.ui")[0]
+form_class = uic.loadUiType("driverMonitorUi.ui")[0]
 
 #publisher & message
 pub=rospy.Publisher('driving_data', DrivingData, queue_size=1)
