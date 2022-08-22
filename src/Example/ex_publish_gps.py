@@ -14,8 +14,8 @@ def main():
 
 	while not rospy.is_shutdown():
 		sig=NavSatFix()
-		sig.latitude=35.9476231
-		sig.longitude=126.5924496
+		sig.latitude=37.5418547
+		sig.longitude=127.07906279999999
 
 		pub.publish(sig)
 
