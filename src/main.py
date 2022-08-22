@@ -5,6 +5,9 @@ import sys
 import time
 import rospy
 
+# TODO pip install haversine
+import haversine
+
 from driver_system.msg import CarState
 from sensor_msgs.msg import NavSatFix
 from driver_system.msg import DrivingData
@@ -19,6 +22,8 @@ global RGB_CONST
 RGB_CONST=32
 
 global START_POINT
+# TODO START_POINT =  (lat, lon) 형식으로 바꾸고 코드에 적용해도 됨. 
+# 대신 [[ (START_POINT[0], START_POINT[1]) =>  START_POINT ]] 로 수정
 START_POINT=[37.5418547, 127.07906279999999] #[0]: latitude, [1]: longitude
 
 global START_WIDTH
@@ -511,20 +516,22 @@ class WindowClass(QMainWindow, form_class):
 
         # 직사각형 start line을 구상하고 조건문 작성. (START_POINT 값이 직사각형의 중심)
         if (self.start_flag==0):
-            if  (latitude<(START_POINT[0]+START_WIDTH[0]) and 
-                 latitude>(START_POINT[0]-START_WIDTH[0]) and
-                 longitude<(START_POINT[1]+START_WIDTH[1]) and
-                 longitude>(START_POINT[1]-START_WIDTH[1])) :
+            # if  (latitude<(START_POINT[0]+START_WIDTH[0]) and 
+            #      latitude>(START_POINT[0]-START_WIDTH[0]) and
+            #      longitude<(START_POINT[1]+START_WIDTH[1]) and
+            #      longitude>(START_POINT[1]-START_WIDTH[1])) :
+            if (haversine((latitude, longitude), (START_POINT[0], START_POINT[1]))):
                 self.start_flag=1
                 self.lap+=1
                 self.start_time_ref=time.time()
                 self.total_time_ref=self.start_time_ref
 
         elif (self.start_flag==1):
-            if  (latitude<(START_POINT[0]+START_WIDTH[0]) and 
-                 latitude>(START_POINT[0]-START_WIDTH[0]) and
-                 longitude<(START_POINT[1]+START_WIDTH[1]) and
-                 longitude>(START_POINT[1]-START_WIDTH[1])) :
+            # if  (latitude<(START_POINT[0]+START_WIDTH[0]) and 
+            #      latitude>(START_POINT[0]-START_WIDTH[0]) and
+            #      longitude<(START_POINT[1]+START_WIDTH[1]) and
+            #      longitude>(START_POINT[1]-START_WIDTH[1])) :
+            if (haversine((latitude, longitude), (START_POINT[0], START_POINT[1]))):
                 if (time.time()-self.start_time_ref>10) :
                     self.lap+=1
                     self.lap_time_ref=time.time()-self.start_time_ref
