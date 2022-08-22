@@ -19,7 +19,7 @@ global RGB_CONST
 RGB_CONST=32
 
 global START_POINT
-START_POINT=[35.9476231, 126.5924496] #[0]: latitude, [1]: longitude
+START_POINT=[37.5418547, 127.07906279999999] #[0]: latitude, [1]: longitude
 
 global START_WIDTH
 START_WIDTH=[0.00002, 0.00006]
@@ -529,12 +529,12 @@ class WindowClass(QMainWindow, form_class):
                     self.lap+=1
                     self.lap_time_ref=time.time()-self.start_time_ref
                     self.start_time_ref=time.time()
-                    self.lap_time_prev=str(int(self.lap_time_ref//60)).zfill(2)+":"+str(int(self.lap_time_ref//1)).zfill(2)+":"+str(int(self.lap_time_ref%1*100)).zfill(2)
+                    self.lap_time_prev=str(int(self.lap_time_ref//60)).zfill(2)+":"+str(int(self.lap_time_ref%60//1)).zfill(2)+":"+str(int(self.lap_time_ref%1*100)).zfill(2)
 
             self.start_duration=time.time()-self.start_time_ref
             self.total_duration=time.time()-self.total_time_ref
-            self.lap_time_cur=str(int(self.start_duration//60)).zfill(2)+":"+str(int(self.start_duration//1)).zfill(2)+":"+str(int(self.start_duration%1*100)).zfill(2)
-            self.total_time=str(int(self.total_duration//3600)).zfill(2)+":"+str(int(self.total_duration//60)).zfill(2)+":"+str(int(self.total_duration%60)).zfill(2)
+            self.lap_time_cur=str(int(self.start_duration//60)).zfill(2)+":"+str(int(self.start_duration%60//1)).zfill(2)+":"+str(int(self.start_duration%1*100)).zfill(2)
+            self.total_time=str(int(self.total_duration//3600)).zfill(2)+":"+str(int(self.total_duration%3600//60)).zfill(2)+":"+str(int(self.total_duration%60)).zfill(2)
             
             # Setting publish msg 
             pub_msg.latitude=latitude
