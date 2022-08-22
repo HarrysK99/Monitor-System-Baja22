@@ -80,6 +80,7 @@ class WindowClass(QMainWindow, form_class):
         self.lap=0
         self.lap_percent=0
         self.start_flag=0
+        self.inStart_flag=0
         self.lap_time_ref=0
         self.start_duration=0
         self.total_duration=0
@@ -515,12 +516,14 @@ class WindowClass(QMainWindow, form_class):
             GPS_flag=0
 
         # 직사각형 start line을 구상하고 조건문 작성. (START_POINT 값이 직사각형의 중심)
+
+            
         if (self.start_flag==0):
             # if  (latitude<(START_POINT[0]+START_WIDTH[0]) and 
             #      latitude>(START_POINT[0]-START_WIDTH[0]) and
             #      longitude<(START_POINT[1]+START_WIDTH[1]) and
             #      longitude>(START_POINT[1]-START_WIDTH[1])) :
-            if (haversine((latitude, longitude), (START_POINT[0], START_POINT[1]))):
+            if (haversine((latitude, longitude), (START_POINT[0], START_POINT[1])) < 0.01):
                 self.start_flag=1
                 self.lap+=1
                 self.start_time_ref=time.time()
@@ -531,12 +534,16 @@ class WindowClass(QMainWindow, form_class):
             #      latitude>(START_POINT[0]-START_WIDTH[0]) and
             #      longitude<(START_POINT[1]+START_WIDTH[1]) and
             #      longitude>(START_POINT[1]-START_WIDTH[1])) :
-            if (haversine((latitude, longitude), (START_POINT[0], START_POINT[1]))):
-                if (time.time()-self.start_time_ref>10) :
+            if (haversine((latitude, longitude), (START_POINT[0], START_POINT[1])) < 0.01):
+                if (self.inStart_flag == 0 and time.time()-self.start_time_ref>10) :
+                    self.inStart_flag = 1
                     self.lap+=1
                     self.lap_time_ref=time.time()-self.start_time_ref
                     self.start_time_ref=time.time()
                     self.lap_time_prev=str(int(self.lap_time_ref//60)).zfill(2)+":"+str(int(self.lap_time_ref%60//1)).zfill(2)+":"+str(int(self.lap_time_ref%1*100)).zfill(2)
+
+            elif (self.inStart_flag == 1):
+                self.inStart_flag = 0
 
             self.start_duration=time.time()-self.start_time_ref
             self.total_duration=time.time()-self.total_time_ref
