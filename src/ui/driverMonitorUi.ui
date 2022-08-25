@@ -652,7 +652,7 @@ border-radius: 3px;</string>
     <string/>
    </property>
   </widget>
-  <widget class="QLabel" name="velocity">
+  <widget class="QLabel" name="velocity_table">
    <property name="geometry">
     <rect>
      <x>690</x>
@@ -993,7 +993,7 @@ background-color:none;
   <zorder>throttle_40</zorder>
   <zorder>throttle_20</zorder>
   <zorder>throttle_10</zorder>
-  <zorder>velocity</zorder>
+  <zorder>velocity_table</zorder>
   <zorder>throttle_1</zorder>
   <zorder>throttle_21</zorder>
   <zorder>throttle_41</zorder>

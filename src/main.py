@@ -4,13 +4,17 @@
 import sys
 import time
 import rospy
+import math
 
 # TODO pip install haversine
-import haversine
+from haversine import haversine
 
 from driver_system.msg import CarState
 from sensor_msgs.msg import NavSatFix
 from driver_system.msg import DrivingData
+from geometry_msgs.msg import PoseStamped
+from customClass import point_
+
 
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
@@ -20,6 +24,9 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 global RGB_CONST
 RGB_CONST=32
+
+global PERIOD
+PERIOD=0.125/3600 #125ms=0.125s=0.0000347222h
 
 global START_POINT
 # TODO START_POINT =  (lat, lon) 형식으로 바꾸고 코드에 적용해도 됨. 
@@ -37,6 +44,9 @@ mbed_flag=0
 
 global GPS_flag
 GPS_flag=0
+
+global UTM_flag
+UTM_flag=0
 
 #UI파일 연결
 #UI파일과 py코드 파일은 같은 디렉토리에 위치
@@ -60,6 +70,13 @@ class CommunicateFromGPS(QObject):
     def run(self,data):
         self.signal.emit(data)
 
+#UTM Communicate
+class CommunicateFromUTM(QObject):
+    signal=pyqtSignal(PoseStamped)
+
+    def run(self,data):
+        self.signal.emit(data)
+
 #화면을 띄우는데 사용되는 Class 선언
 class WindowClass(QMainWindow, form_class):
 
@@ -69,9 +86,11 @@ class WindowClass(QMainWindow, form_class):
 
         self.mbed_trigger=CommunicateFromMbed()
         self.GPS_trigger=CommunicateFromGPS()
+        self.UTM_trigger=CommunicateFromUTM()
 
         self.mbed_trigger.signal.connect(self.SettingByMbed)
         self.GPS_trigger.signal.connect(self.SettingByGPS)
+        self.UTM_trigger.signal.connect(self.SettingByUTM)
 
         #self.mbed_flag=0
         #self.GPS_flag=0
@@ -80,19 +99,24 @@ class WindowClass(QMainWindow, form_class):
         self.lap=0
         self.lap_percent=0
         self.start_flag=0
-        self.inStart_flag=0
         self.lap_time_ref=0
         self.start_duration=0
         self.total_duration=0
         self.lap_time_cur="00:00:00"
         self.lap_time_prev="00:00:00"
         self.total_time="00:00:00"
+        self.prev_point=point_()
+        self.velocity=0
+        
 
     def emitSignalFromMbed(self,data):
         self.mbed_trigger.run(data)
     
     def emitSiganlFromGPS(self,data):
         self.GPS_trigger.run(data)
+
+    def emitSignalFromUTM(self,data):
+        self.UTM_trigger.run(data)
     
     # Mbed 통신 Slot 함수
     @pyqtSlot(CarState)
@@ -100,15 +124,16 @@ class WindowClass(QMainWindow, form_class):
         _translate = QtCore.QCoreApplication.translate
         global RGB_CONST
         global pub, pub_msg
-        global mbed_flag, GPS_flag
+        global mbed_flag, GPS_flag, UTM_flag
         #print('SettingByMbed')
 
         # flag check and publish
-        if (mbed_flag==1 and GPS_flag==1):
-            print('mbed_pub')
+        if (mbed_flag==1 and GPS_flag==1 and UTM_flag==1):
+            #print('mbed_pub')
             pub.publish(pub_msg)
             mbed_flag=0
             GPS_flag=0
+            UTM_flag=0
 
         # Setting publish msg 
         pub_msg.f_motor_torque_FL_Nm=data.f_motor_torque_FL_Nm
@@ -119,7 +144,6 @@ class WindowClass(QMainWindow, form_class):
         pub_msg.f_wheel_velocity_FR_ms=data.f_wheel_velocity_FR_ms
         pub_msg.f_wheel_velocity_RL_ms=data.f_wheel_velocity_RL_ms
         pub_msg.f_wheel_velocity_RR_ms=data.f_wheel_velocity_RR_ms
-        pub_msg.f_car_velocity_ms=data.f_car_velocity_ms
         pub_msg.i_throttle=data.i_throttle
         mbed_flag=1
 
@@ -152,12 +176,6 @@ class WindowClass(QMainWindow, form_class):
 "    border-radius: 60px;    \n"
 "    \n"
 "}")
-
-
-
-        # 현재 속도 출력
-        self.velocity.setText(_translate("Dialog", "<html><head/><body><p align=\"center\"><span style=\" font-size:100pt; font-weight:600;\">%dkm/h</span></p></body></html>" %int(data.f_car_velocity_ms)))
-
 
         # 토크 시각화 FL
         if (data.c_motor_mode_flag[0]==1) :
@@ -509,11 +527,12 @@ class WindowClass(QMainWindow, form_class):
         #print('SettingByGPS')
         
         # flag check and publish
-        if (mbed_flag==1 and GPS_flag==1):
-            print('gps_pub')
+        if (mbed_flag==1 and GPS_flag==1 and UTM_flag==1):
+            #print('gps_pub')
             pub.publish(pub_msg)
             mbed_flag=0
             GPS_flag=0
+            UTM_flag=0
 
         # 직사각형 start line을 구상하고 조건문 작성. (START_POINT 값이 직사각형의 중심)
 
@@ -535,15 +554,11 @@ class WindowClass(QMainWindow, form_class):
             #      longitude<(START_POINT[1]+START_WIDTH[1]) and
             #      longitude>(START_POINT[1]-START_WIDTH[1])) :
             if (haversine((latitude, longitude), (START_POINT[0], START_POINT[1])) < 0.01):
-                if (self.inStart_flag == 0 and time.time()-self.start_time_ref>10) :
-                    self.inStart_flag = 1
+                if (time.time()-self.start_time_ref>10) :
                     self.lap+=1
                     self.lap_time_ref=time.time()-self.start_time_ref
                     self.start_time_ref=time.time()
                     self.lap_time_prev=str(int(self.lap_time_ref//60)).zfill(2)+":"+str(int(self.lap_time_ref%60//1)).zfill(2)+":"+str(int(self.lap_time_ref%1*100)).zfill(2)
-
-            elif (self.inStart_flag == 1):
-                self.inStart_flag = 0
 
             self.start_duration=time.time()-self.start_time_ref
             self.total_duration=time.time()-self.total_time_ref
@@ -579,13 +594,49 @@ class WindowClass(QMainWindow, form_class):
             self.lap_percent=0.997
         if (self.lap_percent==0.0) :
             self.lap_percent=0.003
-        print(self.lap_percent)
 
         self.lappercentage.setStyleSheet("QFrame{\n"
 "    border-radius: 200px;    \n"
 "    background-color: qconicalgradient(cx:0.5, cy:0.5, angle:90, stop:%.3f rgba(255, 255, 255, 0), stop:%.3f rgba(255, 43, 82, 255));\n"
 "} " %(self.lap_percent, self.lap_percent+0.001))
 
+
+    # UTM 통신 Slot 함수
+    @pyqtSlot(PoseStamped)
+    def SettingByUTM(self,data):
+        _translate = QtCore.QCoreApplication.translate
+        global pub, pub_msg
+        global mbed_flag, GPS_flag, UTM_flag
+        #print('SettingByUTM')
+        
+        # flag check and publish
+        if (mbed_flag==1 and GPS_flag==1 and UTM_flag==1):
+            #print('utm_pub')
+            pub.publish(pub_msg)
+            mbed_flag=0
+            GPS_flag=0
+            UTM_flag=0
+        
+        # Setting publish msg 
+        self.velocity=self.calculate_velocity(self.prev_point,data.pose.position)
+        self.prev_point=data.pose.position
+        pub_msg.f_car_velocity_ms=self.velocity
+        UTM_flag=1
+
+        # 현재 속도 출력
+        self.velocity_table.setText(_translate("Dialog", "<html><head/><body><p align=\"center\"><span style=\" font-size:100pt; font-weight:600;\">%dkm/h</span></p></body></html>" %self.velocity))
+
+    # 두 3차원 포인트 간의 거리를 이용해 속도를 출력.
+    def calculate_velocity(self,point1,point2):
+        global PERIOD #h 단위
+
+        squared_distance=(point1.x-point2.x)**2+(point1.y-point2.y)**2#+(point1.z-point2.z)**2
+        distance=math.sqrt(squared_distance)/1000 #km 단위
+        
+        print(distance*1000)
+        print(int(distance/PERIOD))
+
+        return int(distance/PERIOD)
 
 
 def main():
@@ -601,6 +652,7 @@ def main():
     #Subscriber 생성
     rospy.Subscriber('carstate',CarState,callbackByMbed,myWindow)
     rospy.Subscriber('ublox_gps/fix',NavSatFix,callbackByGPS,myWindow)
+    rospy.Subscriber('utm',PoseStamped,callbackByUTM,myWindow)
 
     #first Publish
     pub.publish(pub_msg)
@@ -622,5 +674,11 @@ def callbackByMbed(data,window):
 def callbackByGPS(data,window):
     window.emitSiganlFromGPS(data)
 
+def callbackByUTM(data, window):
+    window.emitSignalFromUTM(data)
+
 if __name__ == "__main__" :
     main()
+
+
+
