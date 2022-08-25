@@ -973,6 +973,33 @@ background-color:none;
     <string/>
    </property>
   </widget>
+  <widget class="QLabel" name="chat">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>850</y>
+     <width>1921</width>
+     <height>161</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Dotum</family>
+     <pointsize>72</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background:transparent</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
   <zorder>label</zorder>
   <zorder>lap_timer_cur</zorder>
   <zorder>lap_timer_prev</zorder>
@@ -1005,6 +1032,7 @@ background-color:none;
   <zorder>FR_state</zorder>
   <zorder>RL_state</zorder>
   <zorder>RR_state</zorder>
+  <zorder>chat</zorder>
  </widget>
  <resources>
   <include location="hybridimages.qrc"/>

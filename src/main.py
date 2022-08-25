@@ -9,7 +9,7 @@ import math
 # TODO pip install haversine
 from haversine import haversine
 
-from driver_system.msg import CarState
+from driver_system.msg import CarState, Message
 from sensor_msgs.msg import NavSatFix
 from driver_system.msg import DrivingData
 from geometry_msgs.msg import PoseStamped
@@ -653,6 +653,7 @@ def main():
     rospy.Subscriber('carstate',CarState,callbackByMbed,myWindow)
     rospy.Subscriber('ublox_gps/fix',NavSatFix,callbackByGPS,myWindow)
     rospy.Subscriber('utm',PoseStamped,callbackByUTM,myWindow)
+    rospy.Subscriber('controlTowerMessage',Message,FloatMessage,myWindow)
 
     #first Publish
     pub.publish(pub_msg)
@@ -667,6 +668,17 @@ def main():
 
     #ros 통신 반복
     rospy.spin()
+
+def FloatMessage(data,window):
+    _translate=QtCore.QCoreApplication.translate
+    if(data.flag==1) : #flag : 1=TRUE, 0=FALSE
+        window.chat.setText(_translate("Dialog",data.data))
+        window.chat.setStyleSheet("background-color:rgb(0,0,0,200);\n"
+"color:rgb(252, 233, 79)")
+
+    else :
+        window.chat.setText("")
+        window.chat.setStyleSheet("background:transparent")
                      
 def callbackByMbed(data,window):
     window.emitSignalFromMbed(data)
