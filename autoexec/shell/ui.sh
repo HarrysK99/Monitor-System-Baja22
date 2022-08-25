@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# cd ~/Option\ System/src
-# python3 main.py
+cd ~/Option\ System/src
+python3 main.py
 
-echo "ui testing"
+# echo "ui testing"

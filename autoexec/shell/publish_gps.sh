@@ -1,5 +1,5 @@
 #!/bin/sh
 
-# rosrun driver_system ex_publish_gps.py
+rosrun driver_system ex_publish_gps.py
 
-echo "publish_gps testing"
+# echo "publish_gps testing"

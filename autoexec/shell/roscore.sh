@@ -1,5 +1,5 @@
 #!/bin/sh
 
-# roscore
+roscore
 
-echo "roscore testing"
+# echo "roscore testing"
