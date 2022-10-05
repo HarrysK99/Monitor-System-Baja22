@@ -321,7 +321,7 @@ class WindowClass(QMainWindow, form_class):
 "}")
 
         # 토크 시각화 RL
-        if (data.c_motor_mode_flag[0]==1) :
+        if (data.c_motor_mode_flag[2]==1) :
             rgb_torque=int(data.f_motor_torque_RL_Nm*RGB_CONST)
 
             if( rgb_torque < 136 ):
