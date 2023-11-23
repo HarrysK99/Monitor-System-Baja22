@@ -1,60 +1,6 @@
-# 실시간 차량 모니터링 프로그램
+<div align="justify">
+<h2>실시간 차량 모니터링 프로그램</h2>
+  
+**2022 Baja KSAE 대학생 자작자동차 대회 Baja 부문** 출전을 위해 수행했던 프로젝트입니다.
 
-<p align="center">
-  <br>
-  <img src="./images/common/logo-sample.jpeg">
-  <br>
-</p>
-
-목차
-
-## 프로젝트 소개
-
-<p align="justify">
-프로젝트 개요/동기
-</p>
-
-<p align="center">
-GIF Images
-</p>
-
-<br>
-
-## 기술 스택
-
-| JavaScript | TypeScript |  React   |  Node   |
-| :--------: | :--------: | :------: | :-----: |
-|   ![js]    |   ![ts]    | ![react] | ![node] |
-
-<br>
-
-## 구현 기능
-
-### 기능 1
-
-### 기능 2
-
-### 기능 3
-
-### 기능 4
-
-<br>
-
-## 배운 점 & 아쉬운 점
-
-<p align="justify">
-
-</p>
-
-<br>
-
-## 라이센스
-
-MIT &copy; [NoHack](mailto:lbjp114@gmail.com)
-
-<!-- Stack Icon Refernces -->
-
-[js]: /images/stack/javascript.svg
-[ts]: /images/stack/typescript.svg
-[react]: /images/stack/react.svg
-[node]: /images/stack/node.svg
+주행 중인 차량의 속도, 배터리 용량, 차량 상태 변화의 경향성 등을 분석할 수 있을 뿐만 아니라 경기장 내 차량의 위치를 실시간으로 확인할 수 있습니다.
